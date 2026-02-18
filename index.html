@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr"><head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,viewport-fit=cover">
   <title>État des lieux – Location Valras</title>
   
   <!-- PWA -->
@@ -308,7 +308,33 @@
       .grid-head > *{display:none}
       .grid-row > *{display:block}
       .grid-row textarea{min-height:60px}
+      body{padding:10px}
+      .content{padding:14px}
+      .toolbar{padding:10px; flex-wrap:wrap}
+      .toolbar .left, .toolbar .right{gap:6px}
+      .btn{padding:8px 10px; font-size:12px}
+      .header h1{font-size:22px}
     }
+
+    /* Autocomplete adresse */
+    .adresse-wrap{position:relative}
+    .adresse-suggestions{
+      position:absolute; top:100%; left:0; right:0; z-index:50;
+      background:white; border:1px solid #e5e7eb; border-top:none;
+      border-radius:0 0 8px 8px; box-shadow:0 8px 24px rgba(0,0,0,0.12);
+      max-height:220px; overflow-y:auto;
+      display:none;
+    }
+    .adresse-suggestions.visible{display:block}
+    .adresse-suggestion{
+      padding:10px 12px; cursor:pointer; font-size:13px;
+      border-bottom:1px solid #f3f4f6; color:#1f2937;
+    }
+    .adresse-suggestion:last-child{border-bottom:none}
+    .adresse-suggestion:hover, .adresse-suggestion.active{
+      background:#eef2ff; color:#667eea;
+    }
+    .adresse-suggestion small{display:block; color:#9ca3af; font-size:11px; margin-top:2px}
 
     /* ==================== STYLES D'IMPRESSION SANS ESPACES VIDES ==================== */
     @media print{
@@ -684,7 +710,7 @@
           </div>
           <div class="field">
             <label>Adresse</label>
-            <input type="text" placeholder="Adresse complète" id="owner-address">
+            <input type="text" placeholder="Adresse complète" id="owner-address" class="adresse-autocomplete" autocomplete="off">
           </div>
           <div class="field">
             <label>Téléphone</label>
@@ -700,7 +726,7 @@
           </div>
           <div class="field">
             <label>Adresse</label>
-            <input type="text" placeholder="Adresse complète" id="tenant-address">
+            <input type="text" placeholder="Adresse complète" id="tenant-address" class="adresse-autocomplete" autocomplete="off">
           </div>
           <div class="field">
             <label>Téléphone</label>
@@ -725,7 +751,7 @@
         <div style="display:flex; gap:12px; flex-wrap:wrap">
           <div style="flex:1; min-width:200px">
             <label style="font-weight:700; color:var(--muted-text); display:block; margin-bottom:6px; font-size:12px">📍 Adresse du logement</label>
-            <textarea class="adresse-input" placeholder="Adresse complète du bien" id="property-address" style="height: 51px; overflow: hidden; line-height: 1.1;"></textarea>
+            <input type="text" class="adresse-autocomplete adresse-input" placeholder="Adresse complète du bien" id="property-address" autocomplete="off" style="height:auto; padding:10px">
           </div>
           <div style="width:180px">
             <label style="font-weight:700; color:var(--muted-text); display:block; margin-bottom:6px; font-size:12px">📅 Date d'entrée</label>
@@ -1282,7 +1308,7 @@
             <strong>Propriétaire / Représentant</strong>
             <div style="margin-top:8px">
               <label style="font-size:11px; color:var(--muted-text)">Date</label>
-              <input type="text" placeholder="JJ/MM/AAAA" id="signature-owner-date" style="width:100%; padding:6px; border-radius:6px; border:1px solid #ccc; margin-top:2px">
+              <input type="date" id="signature-owner-date" style="width:100%; padding:6px; border-radius:6px; border:1px solid #ccc; margin-top:2px">
             </div>
             <div style="margin-top:8px">
               <label style="font-size:11px; color:var(--muted-text)">Nom et prénom</label>
@@ -1299,7 +1325,7 @@
             <strong>Locataire</strong>
             <div style="margin-top:8px">
               <label style="font-size:11px; color:var(--muted-text)">Date</label>
-              <input type="text" placeholder="JJ/MM/AAAA" id="signature-tenant-date" style="width:100%; padding:6px; border-radius:6px; border:1px solid #ccc; margin-top:2px">
+              <input type="date" id="signature-tenant-date" style="width:100%; padding:6px; border-radius:6px; border:1px solid #ccc; margin-top:2px">
             </div>
             <div style="margin-top:8px">
               <label style="font-size:11px; color:var(--muted-text)">Nom et prénom</label>
@@ -2578,6 +2604,102 @@ document.getElementById('btn-send-email')?.addEventListener('click', async funct
     }, 3000);
   }
 });
+</script>
+
+<script>
+// ========== AUTOCOMPLÉTION ADRESSES FRANÇAISES ==========
+// Utilise l'API Base Adresse Nationale (gratuite, sans clé API)
+(function() {
+  let debounceTimer = null;
+  let activeIndex = -1;
+
+  document.querySelectorAll('.adresse-autocomplete').forEach(function(input) {
+    // Créer le wrapper
+    const parent = input.parentElement;
+    const wrap = document.createElement('div');
+    wrap.className = 'adresse-wrap';
+    parent.insertBefore(wrap, input);
+    wrap.appendChild(input);
+
+    // Créer la liste de suggestions
+    const list = document.createElement('div');
+    list.className = 'adresse-suggestions';
+    wrap.appendChild(list);
+
+    // Saisie
+    input.addEventListener('input', function() {
+      const query = this.value.trim();
+      activeIndex = -1;
+
+      if (query.length < 3) {
+        list.classList.remove('visible');
+        list.innerHTML = '';
+        return;
+      }
+
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(function() {
+        fetch('https://api-adresse.data.gouv.fr/search/?q=' + encodeURIComponent(query) + '&limit=6')
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            list.innerHTML = '';
+            if (!data.features || data.features.length === 0) {
+              list.classList.remove('visible');
+              return;
+            }
+
+            data.features.forEach(function(f, i) {
+              const props = f.properties;
+              const div = document.createElement('div');
+              div.className = 'adresse-suggestion';
+              div.innerHTML = props.label + '<small>' + (props.context || '') + '</small>';
+              div.dataset.index = i;
+              div.addEventListener('click', function() {
+                input.value = props.label;
+                list.classList.remove('visible');
+                list.innerHTML = '';
+                input.dispatchEvent(new Event('change', { bubbles: true }));
+              });
+              list.appendChild(div);
+            });
+
+            list.classList.add('visible');
+          })
+          .catch(function() {
+            list.classList.remove('visible');
+          });
+      }, 300);
+    });
+
+    // Navigation clavier
+    input.addEventListener('keydown', function(e) {
+      const items = list.querySelectorAll('.adresse-suggestion');
+      if (!items.length) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        activeIndex = Math.min(activeIndex + 1, items.length - 1);
+        items.forEach(function(el, i) { el.classList.toggle('active', i === activeIndex); });
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        activeIndex = Math.max(activeIndex - 1, 0);
+        items.forEach(function(el, i) { el.classList.toggle('active', i === activeIndex); });
+      } else if (e.key === 'Enter' && activeIndex >= 0) {
+        e.preventDefault();
+        items[activeIndex].click();
+      } else if (e.key === 'Escape') {
+        list.classList.remove('visible');
+      }
+    });
+
+    // Fermer quand on clique ailleurs
+    document.addEventListener('click', function(e) {
+      if (!wrap.contains(e.target)) {
+        list.classList.remove('visible');
+      }
+    });
+  });
+})();
 </script>
 
 </body></html>
