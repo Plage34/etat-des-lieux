@@ -32,6 +32,10 @@
     }
 
     *{box-sizing:border-box}
+    html{
+      touch-action: manipulation;
+      -webkit-text-size-adjust: 100%;
+    }
     html,body{height:100%}
     
     /* PWA iOS safe areas */
@@ -52,6 +56,8 @@
       justify-content:center;
       align-items:flex-start;
       -webkit-overflow-scrolling: touch;
+      touch-action: pan-y pan-x;
+      overflow-y: auto;
     }
 
     .app{
@@ -59,7 +65,7 @@
       max-width:var(--max-width);
       background:var(--card);
       border-radius:18px;
-      overflow:hidden;
+      overflow:visible;
       box-shadow:var(--shadow);
       margin-bottom:28px;
     }
@@ -75,6 +81,7 @@
       align-items:center;
       justify-content:space-between;
       z-index:40;
+      border-radius:18px 18px 0 0;
     }
     .toolbar .left, .toolbar .right{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
     .toolbar h3{margin:0; font-size:16px; font-weight:600}
@@ -318,6 +325,14 @@
 
     /* Autocomplete adresse */
     .adresse-wrap{position:relative}
+
+    /* Champs verrouillés (mémorisés) */
+    .field-locked{
+      background:#f0fdf4 !important;
+      border-color:#86efac !important;
+      color:#166534 !important;
+      cursor:default;
+    }
     .adresse-suggestions{
       position:absolute; top:100%; left:0; right:0; z-index:50;
       background:white; border:1px solid #e5e7eb; border-top:none;
@@ -702,19 +717,29 @@
       </div>
 
       <div class="info-grid">
-        <div class="card">
-          <h3>🏠 Propriétaire</h3>
+        <div class="card" id="card-owner">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px">
+            <h3 style="margin:0">🏠 Propriétaire</h3>
+            <label class="lock-toggle no-print" style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size:11px; color:var(--muted-text); user-select:none">
+              <input type="checkbox" id="lock-owner" style="accent-color:#667eea; width:16px; height:16px; cursor:pointer">
+              <span id="lock-owner-label">🔓 Mémoriser</span>
+            </label>
+          </div>
           <div class="field">
             <label>Nom</label>
-            <input type="text" id="owner-name" placeholder="Nom du propriétaire">
+            <input type="text" id="owner-name" placeholder="Nom du propriétaire" class="lockable-owner">
           </div>
           <div class="field">
             <label>Adresse</label>
-            <input type="text" placeholder="Adresse complète" id="owner-address" class="adresse-autocomplete" autocomplete="off">
+            <input type="text" placeholder="Adresse complète" id="owner-address" class="adresse-autocomplete lockable-owner" autocomplete="off">
           </div>
           <div class="field">
             <label>Téléphone</label>
-            <input type="text" placeholder="Téléphone" id="owner-phone">
+            <input type="text" placeholder="Téléphone" id="owner-phone" class="lockable-owner">
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="text" placeholder="Email" id="owner-email" class="lockable-owner">
           </div>
         </div>
 
@@ -747,11 +772,18 @@
 </div>
 
 
-<div class="card">
+<div class="card" id="card-property">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px">
+          <span style="font-weight:700; color:var(--muted-text); font-size:12px">📍 Logement</span>
+          <label class="lock-toggle no-print" style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size:11px; color:var(--muted-text); user-select:none">
+            <input type="checkbox" id="lock-property" style="accent-color:#667eea; width:16px; height:16px; cursor:pointer">
+            <span id="lock-property-label">🔓 Mémoriser</span>
+          </label>
+        </div>
         <div style="display:flex; gap:12px; flex-wrap:wrap">
           <div style="flex:1; min-width:200px">
-            <label style="font-weight:700; color:var(--muted-text); display:block; margin-bottom:6px; font-size:12px">📍 Adresse du logement</label>
-            <input type="text" class="adresse-autocomplete adresse-input" placeholder="Adresse complète du bien" id="property-address" autocomplete="off" style="height:auto; padding:10px">
+            <label style="font-weight:700; color:var(--muted-text); display:block; margin-bottom:6px; font-size:12px">Adresse du logement</label>
+            <input type="text" class="adresse-autocomplete adresse-input lockable-property" placeholder="Adresse complète du bien" id="property-address" autocomplete="off" style="height:auto; padding:10px">
           </div>
           <div style="width:180px">
             <label style="font-weight:700; color:var(--muted-text); display:block; margin-bottom:6px; font-size:12px">📅 Date d'entrée</label>
@@ -2604,6 +2636,151 @@ document.getElementById('btn-send-email')?.addEventListener('click', async funct
     }, 3000);
   }
 });
+</script>
+
+<script>
+// ========== MÉMORISER PROPRIÉTAIRE & LOGEMENT ==========
+(function() {
+  const STORAGE_KEY_OWNER = 'edl_owner_data';
+  const STORAGE_KEY_PROPERTY = 'edl_property_data';
+
+  const ownerFields = ['owner-name', 'owner-address', 'owner-phone', 'owner-email'];
+  const propertyFields = ['property-address'];
+
+  // Verrouiller / déverrouiller les champs
+  function setFieldsLocked(fieldIds, locked) {
+    fieldIds.forEach(function(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.readOnly = locked;
+      if (locked) {
+        el.classList.add('field-locked');
+      } else {
+        el.classList.remove('field-locked');
+      }
+    });
+  }
+
+  // Sauvegarder les données
+  function saveData(key, fieldIds) {
+    const data = {};
+    fieldIds.forEach(function(id) {
+      const el = document.getElementById(id);
+      if (el) data[id] = el.value;
+    });
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+
+  // Charger les données
+  function loadData(key, fieldIds) {
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) return false;
+      const data = JSON.parse(raw);
+      fieldIds.forEach(function(id) {
+        const el = document.getElementById(id);
+        if (el && data[id]) el.value = data[id];
+      });
+      return true;
+    } catch(e) { return false; }
+  }
+
+  // Mettre à jour l'apparence du toggle
+  function updateToggleLabel(id, locked) {
+    const label = document.getElementById(id + '-label');
+    if (label) {
+      label.textContent = locked ? '🔒 Mémorisé (cliquez pour modifier)' : '🔓 Mémoriser';
+    }
+  }
+
+  // --- PROPRIÉTAIRE ---
+  function initOwnerLock() {
+    const checkbox = document.getElementById('lock-owner');
+    if (!checkbox) return;
+
+    // Charger l'état sauvegardé
+    const wasLocked = localStorage.getItem('edl_owner_locked') === 'true';
+    if (wasLocked) {
+      loadData(STORAGE_KEY_OWNER, ownerFields);
+      checkbox.checked = true;
+      setFieldsLocked(ownerFields, true);
+      updateToggleLabel('lock-owner', true);
+    }
+
+    checkbox.addEventListener('change', function() {
+      if (this.checked) {
+        // Verrouiller et sauvegarder
+        saveData(STORAGE_KEY_OWNER, ownerFields);
+        setFieldsLocked(ownerFields, true);
+        localStorage.setItem('edl_owner_locked', 'true');
+        updateToggleLabel('lock-owner', true);
+      } else {
+        // Déverrouiller
+        setFieldsLocked(ownerFields, false);
+        localStorage.setItem('edl_owner_locked', 'false');
+        updateToggleLabel('lock-owner', false);
+      }
+    });
+
+    // Mettre à jour le stockage quand on modifie un champ déverrouillé puis re-verrouille
+    ownerFields.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('change', function() {
+          if (checkbox.checked) {
+            saveData(STORAGE_KEY_OWNER, ownerFields);
+          }
+        });
+      }
+    });
+  }
+
+  // --- LOGEMENT ---
+  function initPropertyLock() {
+    const checkbox = document.getElementById('lock-property');
+    if (!checkbox) return;
+
+    const wasLocked = localStorage.getItem('edl_property_locked') === 'true';
+    if (wasLocked) {
+      loadData(STORAGE_KEY_PROPERTY, propertyFields);
+      checkbox.checked = true;
+      setFieldsLocked(propertyFields, true);
+      updateToggleLabel('lock-property', true);
+    }
+
+    checkbox.addEventListener('change', function() {
+      if (this.checked) {
+        saveData(STORAGE_KEY_PROPERTY, propertyFields);
+        setFieldsLocked(propertyFields, true);
+        localStorage.setItem('edl_property_locked', 'true');
+        updateToggleLabel('lock-property', true);
+      } else {
+        setFieldsLocked(propertyFields, false);
+        localStorage.setItem('edl_property_locked', 'false');
+        updateToggleLabel('lock-property', false);
+      }
+    });
+
+    propertyFields.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('change', function() {
+          if (checkbox.checked) {
+            saveData(STORAGE_KEY_PROPERTY, propertyFields);
+          }
+        });
+      }
+    });
+  }
+
+  // Attendre que le DOM soit prêt
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { initOwnerLock(); initPropertyLock(); });
+  } else {
+    // Petit délai pour laisser les autres scripts init() remplir les champs d'abord
+    setTimeout(function() { initOwnerLock(); initPropertyLock(); }, 200);
+  }
+})();
 </script>
 
 <script>
