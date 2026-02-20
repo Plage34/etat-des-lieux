@@ -753,25 +753,25 @@
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px">
             <h3 style="margin:0">🏠 Propriétaire</h3>
             <label class="lock-toggle no-print" style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size:11px; color:var(--muted-text); user-select:none">
-              <input type="checkbox" id="lock-owner" style="accent-color:#667eea; width:16px; height:16px; cursor:pointer" value="on">
-              <span id="lock-owner-label">🔒 Mémorisé (cliquez pour modifier)</span>
+              <input type="checkbox" id="lock-owner" style="accent-color:#667eea; width:16px; height:16px; cursor:pointer">
+              <span id="lock-owner-label">🔓 Mémoriser</span>
             </label>
           </div>
           <div class="field">
             <label>Nom</label>
-            <input type="text" id="owner-name" placeholder="Nom du propriétaire" class="lockable-owner field-locked" readonly="">
+            <input type="text" id="owner-name" placeholder="Nom du propriétaire" class="lockable-owner">
           </div>
           <div class="field field-full">
             <label>Adresse</label>
-            <div class="adresse-wrap"><div class="input-with-mic"><input type="text" placeholder="Adresse complète" id="owner-address" class="adresse-autocomplete lockable-owner field-locked" autocomplete="off" data-mic-added="true" readonly=""><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div><div class="adresse-suggestions"></div></div>
+            <input type="text" placeholder="Adresse complète" id="owner-address" class="adresse-autocomplete lockable-owner" autocomplete="off">
           </div>
           <div class="field">
             <label>Téléphone</label>
-            <input type="text" placeholder="Téléphone" id="owner-phone" class="lockable-owner field-locked" readonly="">
+            <input type="text" placeholder="Téléphone" id="owner-phone" class="lockable-owner">
           </div>
           <div class="field">
             <label>Email</label>
-            <input type="text" placeholder="Email" id="owner-email" class="lockable-owner field-locked" readonly="">
+            <input type="text" placeholder="Email" id="owner-email" class="lockable-owner">
           </div>
         </div>
 
@@ -783,7 +783,7 @@
           </div>
           <div class="field field-full">
             <label>Adresse</label>
-            <div class="adresse-wrap"><div class="input-with-mic"><input type="text" placeholder="Adresse complète" id="tenant-address" class="adresse-autocomplete" autocomplete="off" data-mic-added="true"><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div><div class="adresse-suggestions"></div></div>
+            <input type="text" placeholder="Adresse complète" id="tenant-address" class="adresse-autocomplete" autocomplete="off">
           </div>
           <div class="field">
             <label>Téléphone</label>
@@ -808,14 +808,14 @@
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px">
           <span style="font-weight:700; color:var(--muted-text); font-size:12px">📍 Logement</span>
           <label class="lock-toggle no-print" style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size:11px; color:var(--muted-text); user-select:none">
-            <input type="checkbox" id="lock-property" style="accent-color:#667eea; width:16px; height:16px; cursor:pointer" value="on">
-            <span id="lock-property-label">🔒 Mémorisé (cliquez pour modifier)</span>
+            <input type="checkbox" id="lock-property" style="accent-color:#667eea; width:16px; height:16px; cursor:pointer">
+            <span id="lock-property-label">🔓 Mémoriser</span>
           </label>
         </div>
         <div style="display:flex; gap:12px; flex-wrap:wrap">
           <div style="flex:1; min-width:200px">
             <label style="font-weight:700; color:var(--muted-text); display:block; margin-bottom:6px; font-size:12px">Adresse du logement</label>
-            <div class="adresse-wrap"><div class="input-with-mic"><input type="text" class="adresse-autocomplete adresse-input lockable-property field-locked" placeholder="Adresse complète du bien" id="property-address" autocomplete="off" style="height:auto; padding:10px" data-mic-added="true" readonly=""><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div><div class="adresse-suggestions"></div></div>
+            <input type="text" class="adresse-autocomplete adresse-input lockable-property" placeholder="Adresse complète du bien" id="property-address" autocomplete="off" style="height:auto; padding:10px">
           </div>
           <div style="width:180px">
             <label style="font-weight:700; color:var(--muted-text); display:block; margin-bottom:6px; font-size:12px">📅 Date d'entrée</label>
@@ -860,7 +860,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-bphtlga39" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-bphtlga39" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Four" placeholder="Nom de l'équipement" id="field-znfqyjj56">
@@ -872,7 +872,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-te6oxmluk" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-te6oxmluk" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Plaques de cuisson" placeholder="Nom de l'équipement" id="field-7zev8r8ru">
@@ -884,7 +884,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-mn8hxw0tj" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-mn8hxw0tj" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Micro-ondes" placeholder="Nom de l'équipement" id="field-q22yhc40l">
@@ -896,7 +896,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-ayatl4q9a" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-ayatl4q9a" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Lave-vaisselle" placeholder="Nom de l'équipement" id="field-hw96gg7nx">
@@ -908,7 +908,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-fkex0wm3v" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-fkex0wm3v" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Cafetière" placeholder="Nom de l'équipement" id="field-7grgryr15">
@@ -920,7 +920,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-kz5pwmw52" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-kz5pwmw52" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Vaisselle complète" placeholder="Nom de l'équipement" id="field-cgkyut83z">
@@ -932,7 +932,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-f3g2ow4eh" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-f3g2ow4eh" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="" placeholder="Nom de l'équipement" id="field-tklqlkghs">
@@ -944,7 +944,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-m7lp8qbai" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-m7lp8qbai" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="" placeholder="Nom de l'équipement" id="field-2qgte9akp">
@@ -956,7 +956,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-d138kzi3c" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-d138kzi3c" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="" placeholder="Nom de l'équipement" id="field-s8axvsrh1">
@@ -968,7 +968,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-z8q9i9k24" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-z8q9i9k24" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="" placeholder="Nom de l'équipement" id="field-brgm969vv">
@@ -980,7 +980,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-5l4xz7l6g" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-5l4xz7l6g" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="" placeholder="Nom de l'équipement" id="field-mksebrcyf">
@@ -992,7 +992,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-ts5xr0ppp" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-ts5xr0ppp" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div></div><button class="add-equip no-print" style="">+ Ajouter un équipement</button></section><section class="room" data-room-id="room-2"><div class="room-head"><div class="room-title"><div style="font-size:20px">🛋️</div>
         <input type="text" value="Salon" id="field-cf29hjoom"></div><div class="room-controls"><div class="room-id-label" style="color:var(--muted-text); font-weight:600; align-self:center; font-size:11px; display:none">ID: room-2</div>
@@ -1007,7 +1007,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-luiuusdz8" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-luiuusdz8" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Table basse" placeholder="Nom de l'équipement" id="field-i09ga1lb8">
@@ -1019,7 +1019,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-f5ve9xmm0" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-f5ve9xmm0" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Téléviseur" placeholder="Nom de l'équipement" id="field-yc47wjicw">
@@ -1031,7 +1031,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-mjff3gac9" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-mjff3gac9" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Rideaux/Voilages" placeholder="Nom de l'équipement" id="field-0iu87g5r5">
@@ -1043,7 +1043,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-3al6o1yr5" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-3al6o1yr5" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="" placeholder="Nom de l'équipement" id="field-v7pbgmhmx">
@@ -1055,7 +1055,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-zwrhzwf4r" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-zwrhzwf4r" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div></div><button class="add-equip no-print" style="">+ Ajouter un équipement</button></section><section class="room" data-room-id="room-3"><div class="room-head"><div class="room-title"><div style="font-size:20px">🛏️</div>
         <input type="text" value="Chambre" id="field-t1751cx1j"></div><div class="room-controls"><div class="room-id-label" style="color:var(--muted-text); font-weight:600; align-self:center; font-size:11px; display:none">ID: room-3</div>
@@ -1070,7 +1070,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-76p572faq" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-76p572faq" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Armoire/Placard" placeholder="Nom de l'équipement" id="field-utkyrwypt">
@@ -1082,7 +1082,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-fi6kequjr" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-fi6kequjr" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Table de chevet" placeholder="Nom de l'équipement" id="field-wr62qgbkn">
@@ -1094,7 +1094,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-om4oz3jtf" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-om4oz3jtf" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="" placeholder="Nom de l'équipement" id="field-sam7zl5kp">
@@ -1106,7 +1106,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-72l2arr2d" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-72l2arr2d" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div></div><button class="add-equip no-print" style="">+ Ajouter un équipement</button></section><section class="room" data-room-id="room-4"><div class="room-head"><div class="room-title"><div style="font-size:20px">🚿</div>
         <input type="text" value="Salle de bain" id="field-h0i0zc7ac"></div><div class="room-controls"><div class="room-id-label" style="color:var(--muted-text); font-weight:600; align-self:center; font-size:11px; display:none">ID: room-4</div>
@@ -1121,7 +1121,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-rf6e7cx2k" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-rf6e7cx2k" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Douche/Baignoire" placeholder="Nom de l'équipement" id="field-vzq79a9zr">
@@ -1133,7 +1133,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-duvq31lc3" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-duvq31lc3" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="WC" placeholder="Nom de l'équipement" id="field-3qj5kjk7o">
@@ -1145,7 +1145,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-dtzoiz4e5" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-dtzoiz4e5" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Miroir" placeholder="Nom de l'équipement" id="field-8tmpfxpft">
@@ -1157,7 +1157,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-m9q9rd6pj" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-m9q9rd6pj" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="" placeholder="Nom de l'équipement" id="field-cwbyyip7s">
@@ -1169,7 +1169,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-55xaja32s" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-55xaja32s" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="" placeholder="Nom de l'équipement" id="field-au8gy1b2r">
@@ -1181,7 +1181,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-dhq2reva4" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-dhq2reva4" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="" placeholder="Nom de l'équipement" id="field-pm7hp1ifk">
@@ -1193,7 +1193,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-u7l66ojuq" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-u7l66ojuq" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="" placeholder="Nom de l'équipement" id="field-1whpbt6ip">
@@ -1205,7 +1205,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-vmmt03je0" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-vmmt03je0" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div></div><button class="add-equip no-print" style="">+ Ajouter un équipement</button></section><section class="room" data-room-id="room-5"><div class="room-head"><div class="room-title"><div style="font-size:20px">🛏️</div>
         <input type="text" value="Chambre" id="field-23s2lukue"></div><div class="room-controls"><div class="room-id-label" style="color:var(--muted-text); font-weight:600; align-self:center; font-size:11px; display:none">ID: room-5</div>
@@ -1220,7 +1220,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-261tg5pk8" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-261tg5pk8" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Armoire/Placard" placeholder="Nom de l'équipement" id="field-sjm1flpy7">
@@ -1232,7 +1232,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-on2nu9nlb" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-on2nu9nlb" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Table de chevet" placeholder="Nom de l'équipement" id="field-gcspk112a">
@@ -1244,7 +1244,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-n5olsbgim" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-n5olsbgim" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div></div><button class="add-equip no-print" style="">+ Ajouter un équipement</button></section><section class="room" data-room-id="room-6"><div class="room-head"><div class="room-title"><div style="font-size:20px">🛏️</div>
         <input type="text" value="Chambre" id="field-v0e82l33k"></div><div class="room-controls"><div class="room-id-label" style="color:var(--muted-text); font-weight:600; align-self:center; font-size:11px; display:none">ID: room-6</div>
@@ -1259,7 +1259,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-vve7dw9jf" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-vve7dw9jf" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Armoire/Placard" placeholder="Nom de l'équipement" id="field-bbriadmsq">
@@ -1271,7 +1271,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-s77ngxi0d" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-s77ngxi0d" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="Table de chevet" placeholder="Nom de l'équipement" id="field-54jd8hlsd">
@@ -1283,7 +1283,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-efqr33x6w" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-efqr33x6w" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="" placeholder="Nom de l'équipement" id="field-b5b1p0w6a">
@@ -1295,7 +1295,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-w9nz0iezv" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-w9nz0iezv" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="" placeholder="Nom de l'équipement" id="field-bhe8ixsbl">
@@ -1307,7 +1307,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-8uoxy3a5x" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-8uoxy3a5x" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="" placeholder="Nom de l'équipement" id="field-f7pgx0jzh">
@@ -1319,7 +1319,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-ex22995t1" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-ex22995t1" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div><div class="grid-row">
         <input type="text" value="" placeholder="Nom de l'équipement" id="field-k4kst6tox">
@@ -1331,7 +1331,7 @@
           <option value="moyen">Moyen</option>
           <option value="mauvais">Mauvais</option>
         </select>
-        <div class="input-with-mic"><textarea placeholder="Observations / Remarques..." id="field-rexzwpvxp" style="height: 50px; overflow: hidden; line-height: 1.1;" data-mic-added="true"></textarea><button type="button" class="btn-mic no-print" title="Dictée vocale">🎤</button></div>
+        <textarea placeholder="Observations / Remarques..." id="field-rexzwpvxp" style="height: 50px; overflow: hidden; line-height: 1.1;"></textarea>
         <button class="small-btn remove-item no-print" style="">✕</button>
       </div></div><button class="add-equip no-print" style="">+ Ajouter un équipement</button></section></div>
       </div>
@@ -1339,9 +1339,9 @@
       <div id="section-compteurs">
         <div class="section-title" style="cursor:pointer; user-select:none" onclick="var c=document.getElementById('compteurs-content'); var b=document.getElementById('compteurs-toggle'); if(c.style.display==='none'){c.style.display='';b.textContent='▼ Masquer'}else{c.style.display='none';b.textContent='▶ Afficher'}">
           <h2>Relevés de compteurs</h2>
-          <button class="btn ghost no-print" id="compteurs-toggle" style="font-size:11px; padding:4px 10px" onclick="event.stopPropagation(); this.parentElement.click()">▶ Afficher</button>
+          <button class="btn ghost no-print" id="compteurs-toggle" style="font-size:11px; padding:4px 10px" onclick="event.stopPropagation(); this.parentElement.click()">▼ Masquer</button>
         </div>
-        <div class="card" id="compteurs-content" style="display: none;">
+        <div class="card" id="compteurs-content">
           <div class="compteurs-grid">
             <div>
               <label style="display:block; font-weight:700; color:var(--muted-text); font-size:12px; margin-bottom:4px">⚡ Électricité (kWh)</label>
@@ -1381,8 +1381,8 @@
             </div>
             <div style="margin-top:10px">
               <label style="font-size:11px; color:var(--muted-text)">Signature (dessinez ci-dessous)</label>
-              <canvas id="sig-owner" class="signature-canvas" width="727" height="240" style="width:100%; height:160px; border:2px dashed rgba(102,126,234,0.25); border-radius:8px; background:white; cursor:crosshair; touch-action:none"></canvas>
-              <div id="sig-owner-img" style="display:none"><img style="width:100%; border-radius:8px; border:1px solid #ddd"></div>
+              <canvas id="sig-owner" class="signature-canvas" width="400" height="160" style="width:100%; height:160px; border:2px dashed rgba(102,126,234,0.25); border-radius:8px; background:white; cursor:crosshair; touch-action:none"></canvas>
+              <div id="sig-owner-img" style="display:none"><img style="width:100%; border-radius:8px; border:1px solid #ddd" /></div>
               <button class="btn ghost no-print" onclick="clearSignature('sig-owner')" style="margin-top:6px; padding:4px 10px; font-size:11px; color:#ef4444; border-color:#ef4444">✕ Effacer signature</button>
             </div>
           </div>
@@ -1398,8 +1398,8 @@
             </div>
             <div style="margin-top:10px">
               <label style="font-size:11px; color:var(--muted-text)">Signature (dessinez ci-dessous)</label>
-              <canvas id="sig-tenant" class="signature-canvas" width="727" height="240" style="width:100%; height:160px; border:2px dashed rgba(102,126,234,0.25); border-radius:8px; background:white; cursor:crosshair; touch-action:none"></canvas>
-              <div id="sig-tenant-img" style="display:none"><img style="width:100%; border-radius:8px; border:1px solid #ddd"></div>
+              <canvas id="sig-tenant" class="signature-canvas" width="400" height="160" style="width:100%; height:160px; border:2px dashed rgba(102,126,234,0.25); border-radius:8px; background:white; cursor:crosshair; touch-action:none"></canvas>
+              <div id="sig-tenant-img" style="display:none"><img style="width:100%; border-radius:8px; border:1px solid #ddd" /></div>
               <button class="btn ghost no-print" onclick="clearSignature('sig-tenant')" style="margin-top:6px; padding:4px 10px; font-size:11px; color:#ef4444; border-color:#ef4444">✕ Effacer signature</button>
             </div>
           </div>
