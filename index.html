@@ -407,22 +407,22 @@
         display:grid;
       }
       
-      /* Header minimaliste sur la première page - centré verticalement et horizontalement */
+      /* Header compact - même taille qu'à l'écran */
       .header{
-        padding:40px 30px !important;
-        margin:0 !important;
+        padding:10mm 10mm !important;
+        margin:0 0 2mm 0 !important;
         border-radius:0 !important;
         page-break-inside: avoid;
-        page-break-after: always;
-        min-height:150mm;
+        page-break-after: auto;
+        min-height:auto !important;
         display:flex;
         align-items:center;
         justify-content:center;
         flex-direction:column;
         text-align:center;
       }
-      .header h1{font-size:24pt !important; margin:0 0 8mm 0 !important; font-weight:700 !important}
-      .header p{font-size:12pt !important; margin:0 !important}
+      .header h1{font-size:18pt !important; margin:0 0 2mm 0 !important; font-weight:700 !important}
+      .header p{font-size:9pt !important; margin:0 !important}
       .header small{font-size:6pt !important; display:none !important}
       .header > div{text-align:center !important}
       
@@ -437,7 +437,7 @@
         page-break-inside: avoid;
       }
       
-      /* Rooms sans marge */
+      /* Rooms - AUTORISE les coupures de page */
       .room {
         box-shadow: none !important; 
         background: #f9f9f9 !important; 
@@ -445,8 +445,25 @@
         padding: 2mm 2mm !important;
         margin:0 0 1mm 0 !important;
         border-radius:0 !important;
+        page-break-inside: auto;
+        break-inside: auto;
+      }
+      /* Le titre de la pièce reste avec le premier équipement */
+      .room-head{
         page-break-inside: avoid;
         break-inside: avoid;
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+      /* Chaque ligne reste intacte */
+      .items .grid-row{
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      /* L'en-tête du tableau reste avec la première ligne */
+      .items .grid-head{
+        page-break-after: avoid;
+        break-after: avoid;
       }
       
       .signature-box, .observations { 
@@ -1837,6 +1854,20 @@
       const toolbar = document.querySelector('.toolbar');
       if (toolbar) toolbar.style.display = 'none';
 
+      // Compacter le header
+      const header = document.querySelector('.header');
+      const headerOldStyle = header ? header.style.cssText : '';
+      if (header) {
+        header.style.padding = '15px 20px';
+        header.style.minHeight = 'auto';
+      }
+      const h1 = document.querySelector('.header h1');
+      const h1OldSize = h1 ? h1.style.fontSize : '';
+      if (h1) h1.style.fontSize = '22px';
+      const headerP = document.querySelector('.header p');
+      const headerPOldSize = headerP ? headerP.style.fontSize : '';
+      if (headerP) headerP.style.fontSize = '11px';
+
       // Forcer les signatures côte à côte
       const sigGrid = document.querySelector('.signatures');
       const sigGridOldStyle = sigGrid ? sigGrid.style.cssText : '';
@@ -1874,6 +1905,9 @@
       function restoreAfterExport() {
         interactive.forEach(el => el.style.display = '');
         if (toolbar) toolbar.style.display = '';
+        if (header) header.style.cssText = headerOldStyle;
+        if (h1) h1.style.fontSize = h1OldSize;
+        if (headerP) headerP.style.fontSize = headerPOldSize;
         if (sigGrid) sigGrid.style.cssText = sigGridOldStyle;
         document.querySelectorAll('.signature-box').forEach(sb => {
           sb.style.cssText = sb.dataset.oldStyle || '';
