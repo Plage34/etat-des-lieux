@@ -2535,7 +2535,7 @@ function initSignaturePad(canvasId) {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   let drawing = false;
-  let lastX = 0, lastY = 0;
+  let points = []; // Historique des points pour le lissage
 
   function resize() {
     const rect = canvas.getBoundingClientRect();
@@ -2545,7 +2545,7 @@ function initSignaturePad(canvasId) {
     canvas.height = rect.height * ratio;
     ctx.scale(ratio, ratio);
     ctx.putImageData(imgData, 0, 0);
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 2.5;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.strokeStyle = '#1a1a2e';
@@ -2561,8 +2561,7 @@ function initSignaturePad(canvasId) {
     e.preventDefault();
     drawing = true;
     const pos = getPos(e);
-    lastX = pos.x;
-    lastY = pos.y;
+    points = [pos];
     ctx.beginPath();
     ctx.moveTo(pos.x, pos.y);
   }
@@ -2571,17 +2570,44 @@ function initSignaturePad(canvasId) {
     if (!drawing) return;
     e.preventDefault();
     const pos = getPos(e);
+    points.push(pos);
+
+    if (points.length < 3) {
+      // Pas assez de points, tracer une ligne simple
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+      return;
+    }
+
+    // Courbe de Bézier quadratique lissée
+    // On utilise les 2 derniers segments pour tracer une courbe fluide
     ctx.beginPath();
-    ctx.moveTo(lastX, lastY);
-    ctx.lineTo(pos.x, pos.y);
+    const len = points.length;
+    const p0 = points[len - 3];
+    const p1 = points[len - 2];
+    const p2 = points[len - 1];
+
+    // Point de contrôle = point précédent, point final = milieu entre précédent et actuel
+    const midX = (p1.x + p2.x) / 2;
+    const midY = (p1.y + p2.y) / 2;
+
+    ctx.moveTo((p0.x + p1.x) / 2, (p0.y + p1.y) / 2);
+    ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
     ctx.stroke();
-    lastX = pos.x;
-    lastY = pos.y;
   }
 
   function stopDraw(e) {
     if (e) e.preventDefault();
+    if (drawing && points.length > 1) {
+      // Tracer le dernier segment jusqu'au point final
+      const last = points[points.length - 1];
+      ctx.lineTo(last.x, last.y);
+      ctx.stroke();
+    }
     drawing = false;
+    points = [];
   }
 
   // Mouse

@@ -1,5 +1,5 @@
 // Service Worker – État des Lieux PWA
-const CACHE_NAME = 'edl-valras-v12';
+const CACHE_NAME = 'edl-valras-v13';
 const ASSETS = [
   './',
   './index.html',
