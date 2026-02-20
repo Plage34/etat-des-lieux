@@ -688,15 +688,20 @@
         page-break-inside: avoid;
       }
       
-      /* Forcer un saut avant la section photos */
+      /* Photos - pas de saut de page forcé, remplir l'espace disponible */
       #photo-section {
-        page-break-before: always;
+        page-break-before: auto;
+        page-break-inside: auto !important;
+        break-inside: auto !important;
         margin-top: 0;
+      }
+      #photo-section h3 {
+        page-break-after: avoid;
       }
       
       /* Images optimisées pour impression */
       img {
-        max-height: 220mm;
+        max-height: 150px;
         object-fit: contain;
         page-break-inside: avoid;
         margin:1mm 0;
